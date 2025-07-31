@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agney & Adithiya Wedding Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f6d1c1 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 600px;
+            margin: 60px auto 0 auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            padding: 40px 32px 32px 32px;
+            text-align: center;
+            position: relative;
+            animation: fadeInUp 1.2s cubic-bezier(.42,0,.58,1);
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            color: #d16e6e;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            animation: fadeIn 2s;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .and {
+            font-size: 1.2rem;
+            color: #a67c52;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .invite {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 24px;
+            animation: fadeIn 2.5s;
+        }
+        .date {
+            font-size: 1.5rem;
+            color: #d16e6e;
+            margin-bottom: 18px;
+            font-weight: bold;
+            animation: fadeIn 2.8s;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 32px;
+            animation: fadeIn 3s;
+        }
+        .countdown-item {
+            background: #fff6f2;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(209,110,110,0.08);
+            padding: 18px 12px;
+            min-width: 70px;
+            font-size: 1.3rem;
+            color: #d16e6e;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+        .countdown-item span {
+            font-size: 0.8rem;
+            color: #a67c52;
+            font-weight: normal;
+        }
+        .flowers {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .footer {
+            margin-top: 32px;
+            font-size: 1rem;
+            color: #a67c52;
+            opacity: 0.8;
+        }
+        /* Simple flower animation */
+        .flower {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            animation: floatFlower 6s infinite ease-in-out;
+        }
+        .flower1 { left: 10%; animation-delay: 0s; }
+        .flower2 { left: 40%; animation-delay: 1.5s; }
+        .flower3 { left: 70%; animation-delay: 3s; }
+        @keyframes floatFlower {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(20px) scale(1.1); opacity: 0.8; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flowers">
+            <svg class="flower flower1" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#f6d1c1"/><circle cx="24" cy="24" r="8" fill="#d16e6e"/></svg>
+            <svg class="flower flower2" viewBox="0 0 48 48"><rect x="12" y="12" width="24" height="24" rx="12" fill="#f6d1c1"/><circle cx="24" cy="24" r="8" fill="#d16e6e"/></svg>
+            <svg class="flower flower3" viewBox="0 0 48 48"><ellipse cx="24" cy="24" rx="18" ry="10" fill="#f6d1c1"/><circle cx="24" cy="24" r="8" fill="#d16e6e"/></svg>
+        </div>
+        <div class="names">Agney <span class="and">&</span> Adithiya</div>
+        <div class="invite">Request the pleasure of your company at their wedding celebration</div>
+        <div class="date">13<sup>th</sup> September 2026</div>
+        <div class="countdown" id="countdown">
+            <div class="countdown-item"><span id="days">0</span><span>Days</span></div>
+            <div class="countdown-item"><span id="hours">0</span><span>Hours</span></div>
+            <div class="countdown-item"><span id="minutes">0</span><span>Minutes</span></div>
+            <div class="countdown-item"><span id="seconds">0</span><span>Seconds</span></div>
+        </div>
+        <div class="footer">With love, Agney & Adithiya</div>
+    </div>
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const weddingDate = new Date('2026-09-13T00:00:00');
+            const now = new Date();
+            let diff = weddingDate - now;
+            if (diff < 0) diff = 0;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
