@@ -25,12 +25,17 @@
         </div>
         <div class="footer">With love, Agney & Adithya </div>
         <div class="location-section">
-            <div class="globe-container">
-                <svg id="globe" viewBox="0 0 120 120" width="120" height="120">
-                    <circle cx="60" cy="60" r="55" fill="#e0f7fa" stroke="#b2ebf2" stroke-width="4"/>
-                    <ellipse cx="60" cy="60" rx="45" ry="18" fill="#b2ebf2" opacity="0.7"/>
-                    <circle id="marker" cx="90" cy="60" r="5" fill="#d16e6e" stroke="#fff" stroke-width="2"/>
-                </svg>
+            <div class="map-embed-container">
+                <iframe
+                    id="wedding-map"
+                    width="350"
+                    height="250"
+                    style="border:0;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,0.10);"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.017964964049!2d76.9955!3d11.0168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859b1e2e2e2e3%3A0x123456789abcdef!2sWedding%20Location!5e0!3m2!1sen!2sin!4v1690000000000!5m2!1sen!2sin"
+                ></iframe>
             </div>
             <div class="location-text">
                 <span style="font-size:1.1rem;color:#a67c52;">Marriage Location:</span><br>
@@ -39,24 +44,23 @@
         </div>
     </div>
     <script>
-        // Globe zoom animation
-        const globe = document.getElementById('globe');
-        const marker = document.getElementById('marker');
-        let zoom = 1;
-        let zoomingIn = true;
-        function animateGlobe() {
-            if (zoomingIn) {
-                zoom += 0.01;
-                if (zoom >= 1.18) zoomingIn = false;
+        // Map zoom-in animation
+        const mapFrame = document.getElementById('wedding-map');
+        let mapZoom = 1;
+        let mapAnimFrame = 0;
+        function animateMapZoom() {
+            if (mapZoom < 1.0) mapZoom = 1.0;
+            if (mapZoom < 1.15) {
+                mapZoom += 0.01;
+                mapFrame.style.transform = `scale(${mapZoom})`;
+                mapFrame.style.transition = 'transform 0.5s cubic-bezier(.42,0,.58,1)';
+                mapAnimFrame = requestAnimationFrame(animateMapZoom);
             } else {
-                zoom -= 0.01;
-                if (zoom <= 1) zoomingIn = true;
+                mapFrame.style.transform = 'scale(1.15)';
             }
-            globe.style.transform = `scale(${zoom})`;
-            marker.setAttribute('r', 5 + (zoom-1)*10);
-            requestAnimationFrame(animateGlobe);
         }
-        animateGlobe();
+        mapFrame.style.transform = 'scale(1)';
+        setTimeout(() => animateMapZoom(), 800);
         // Countdown Timer
         function updateCountdown() {
             const weddingDate = new Date('2026-09-13T00:00:00');

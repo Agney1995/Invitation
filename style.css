@@ -1,3 +1,16 @@
+/* Embedded map styles */
+.map-embed-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+    width: 100%;
+}
+#wedding-map {
+    transition: transform 0.5s cubic-bezier(.42,0,.58,1);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    border-radius: 16px;
+}
 /* Location section styles */
 .location-section {
     margin-top: 36px;
