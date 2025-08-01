@@ -26,16 +26,28 @@
         <div class="footer">With love, Agney & Adithya </div>
         <div class="location-section">
             <div class="map-embed-container">
-                <iframe
-                    id="wedding-map"
-                    width="350"
-                    height="250"
-                    style="border:0;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,0.10);"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    src="https://www.google.com/maps?q=GVMJ%2BG9%20Thiruvananthapuram,%20Kerala&z=17&output=embed"
-                ></iframe>
+                <div class="map-anim-wrapper" style="position:relative;width:350px;height:250px;">
+                    <iframe
+                        id="wedding-map"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.645496472943!2d76.87840317466605!3d8.533754691509124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bf5ebc3b9d5b%3A0x84ad3e285394ed97!2sAl%20Saj%20Arena!5e0!3m2!1sen!2sin!4v1754029714011!5m2!1sen!2sin"
+                        width="350"
+                        height="250"
+                        style="border:0;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,0.10);position:absolute;left:0;top:0;z-index:1;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                    <svg id="wedding-car" width="60" height="32" viewBox="0 0 60 32" style="position:absolute;left:0;top:180px;z-index:2;pointer-events:none;">
+                        <g>
+                            <rect x="10" y="12" width="40" height="12" rx="6" fill="#fff" stroke="#d16e6e" stroke-width="2"/>
+                            <rect x="18" y="8" width="24" height="10" rx="5" fill="#d16e6e" stroke="#fff" stroke-width="2"/>
+                            <circle cx="18" cy="26" r="4" fill="#444"/>
+                            <circle cx="42" cy="26" r="4" fill="#444"/>
+                            <ellipse cx="30" cy="18" rx="6" ry="3" fill="#fff" opacity="0.7"/>
+                            <rect x="25" y="4" width="10" height="6" rx="3" fill="#f6d1c1" stroke="#d16e6e" stroke-width="1"/>
+                        </g>
+                    </svg>
+                </div>
             </div>
             <div class="location-text">
                 <span style="font-size:1.1rem;color:#a67c52;">Marriage Location:</span><br>
@@ -59,6 +71,27 @@
         }
         mapFrame.style.transform = 'scale(0.2)';
         setTimeout(() => animateMapZoom(), 800);
+
+        // Wedding car animation
+        const car = document.getElementById('wedding-car');
+        let carX = 0;
+        let carY = 0;
+        let carAnimFrame = 0;
+        function animateCar() {
+            // Move car from left (0,180) to right (260, 60) in a curve
+            if (carX < 260) {
+                carX += 2.2;
+                // Parabolic curve: y = 180 - (120 * (carX/260)^2)
+                carY = 180 - (120 * Math.pow(carX/260, 2));
+                car.style.left = carX + 'px';
+                car.style.top = carY + 'px';
+                carAnimFrame = requestAnimationFrame(animateCar);
+            } else {
+                car.style.left = '260px';
+                car.style.top = '60px';
+            }
+        }
+        setTimeout(() => animateCar(), 1200);
         // Countdown Timer
         function updateCountdown() {
             const weddingDate = new Date('2026-09-13T00:00:00');
