@@ -34,7 +34,7 @@
                     allowfullscreen=""
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.017964964049!2d76.9955!3d11.0168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859b1e2e2e2e3%3A0x123456789abcdef!2sWedding%20Location!5e0!3m2!1sen!2sin!4v1690000000000!5m2!1sen!2sin"
+                    src="https://www.google.com/maps?q=GVMJ%2BG9%20Thiruvananthapuram,%20Kerala&z=17&output=embed"
                 ></iframe>
             </div>
             <div class="location-text">
@@ -44,22 +44,20 @@
         </div>
     </div>
     <script>
-        // Map zoom-in animation
+        // Google Earth-like zoom-in animation
         const mapFrame = document.getElementById('wedding-map');
-        let mapZoom = 1;
-        let mapAnimFrame = 0;
+        let mapZoom = 0.2;
         function animateMapZoom() {
-            if (mapZoom < 1.0) mapZoom = 1.0;
             if (mapZoom < 1.15) {
-                mapZoom += 0.01;
+                mapZoom += (mapZoom < 1 ? 0.04 : 0.01);
                 mapFrame.style.transform = `scale(${mapZoom})`;
-                mapFrame.style.transition = 'transform 0.5s cubic-bezier(.42,0,.58,1)';
-                mapAnimFrame = requestAnimationFrame(animateMapZoom);
+                mapFrame.style.transition = 'transform 0.4s cubic-bezier(.42,0,.58,1)';
+                requestAnimationFrame(animateMapZoom);
             } else {
                 mapFrame.style.transform = 'scale(1.15)';
             }
         }
-        mapFrame.style.transform = 'scale(1)';
+        mapFrame.style.transform = 'scale(0.2)';
         setTimeout(() => animateMapZoom(), 800);
         // Countdown Timer
         function updateCountdown() {
